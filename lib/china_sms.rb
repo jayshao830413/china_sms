@@ -23,6 +23,11 @@ module ChinaSMS
     @password = options[:password]
   end
 
+  def register(service, options)
+    @service = ChinaSMS::Service.const_get("#{service.to_s.capitalize}")
+    @service.register(options)
+  end
+
   def to(receiver, content)
     @service.to receiver, content.strip, username: @username, password: @password if @service
   end

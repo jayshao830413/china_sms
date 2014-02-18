@@ -3,17 +3,20 @@ module ChinaSMS
   module Service
     module Emay
       extend self
-      URL = "http://sdkhttp.eucp.b2m.cn/sdkproxy"
+
+      SEND_URL = "http://sdk4report.eucp.b2m.cn:8080/sdkproxy/sendsms.action"
+      GET_URL = "http://sdk4report.eucp.b2m.cn:8080/sdkproxy/getmo.action"
+      REGISTRATION_URL = "http://sdk4report.eucp.b2m.cn:8080/sdkproxy/registdetailinfo.action"
 
       def to(phone, content, options)
         phones = Array(phone).join(',')
-        res = Net::HTTP.post_form(URI.parse("#{URL}/sendsms.action"), cdkey: options[:username], password: options[:password], phone: phones, message: content)
+        res = Net::HTTP.post_form(URI.parse(SEND_URL), cdkey: options[:username], password: options[:password], phone: phones, message: content)
         result res.body
       end
 
       def get(options)
         # res = Net::HTTP.post_form(URI.parse(GET_URL), cdkey: options[:username], password: options[:password])
-        url = "#{URL}/getmo.action?cdkey=#{options[:username]}&password=#{options[:password]}"
+        url = GET_URL + "?cdkey=#{options[:username]}&password=#{options[:password]}"
         res = Net::HTTP.get(URI.parse(url))
         res.body
       end
@@ -26,6 +29,10 @@ module ChinaSMS
         }
       end
 
+      def register(options)
+        res = Net::HTTP.post_form(URI.parse(REGISTRATION_URL), options)
+        result res.body
+      end
     end
   end
 end
