@@ -23,14 +23,19 @@ module ChinaSMS
     @password = options[:password]
   end
 
-  def register(service, options)
+  def company_info_register(service, options)
     @service = ChinaSMS::Service.const_get("#{service.to_s.capitalize}")
-    @service.register(options)
+    @service.company_info_register(options)
   end
 
   def cancel_register(service, username, password)
     @service = ChinaSMS::Service.const_get("#{service.to_s.capitalize}")
     @service.cancel_register(username, password)
+  end
+
+  def code_registration_url(service, options)
+    @service = ChinaSMS::Service.const_get("#{service.to_s.capitalize}")
+    @service.code_registration_url(options)
   end
 
   def to(receiver, content)
