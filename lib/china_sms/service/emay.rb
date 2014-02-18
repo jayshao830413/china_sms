@@ -7,6 +7,7 @@ module ChinaSMS
       SEND_URL = "http://sdk4report.eucp.b2m.cn:8080/sdkproxy/sendsms.action"
       GET_URL = "http://sdk4report.eucp.b2m.cn:8080/sdkproxy/getmo.action"
       REGISTRATION_URL = "http://sdk4report.eucp.b2m.cn:8080/sdkproxy/registdetailinfo.action"
+      CANCEL_REGISTRATION_URL = "http://sdk4report.eucp.b2m.cn:8080/sdkproxy/logout.action"
 
       def to(phone, content, options)
         phones = Array(phone).join(',')
@@ -35,7 +36,7 @@ module ChinaSMS
       end
 
       def cancel_register(username, password)
-        res = Net::HTTP.post_form(URI.parse(SEND_URL), cdkey: username, password: password)
+        res = Net::HTTP.post_form(URI.parse(CANCEL_REGISTRATION_URL), cdkey: username, password: password)
         result res.body
       end
     end
