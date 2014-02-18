@@ -33,9 +33,9 @@ module ChinaSMS
     @service.cancel_register(username, password)
   end
 
-  def code_registration_url(service, options)
+  def code_register(service, options)
     @service = ChinaSMS::Service.const_get("#{service.to_s.capitalize}")
-    @service.code_registration_url(options)
+    @service.code_register(options)
   end
 
   def to(receiver, content)

@@ -31,7 +31,7 @@ module ChinaSMS
         }
       end
 
-      def code_registration_url(options)
+      def code_register(options)
         res = Net::HTTP.post_form(URI.parse(CODE_REGISTRATION_URL), cdkey: options[:username], password: options[:password])
         res.body
       end
