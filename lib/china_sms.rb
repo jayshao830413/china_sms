@@ -28,6 +28,11 @@ module ChinaSMS
     @service.register(options)
   end
 
+  def cancel_register(service, username, password)
+    @service = ChinaSMS::Service.const_get("#{service.to_s.capitalize}")
+    @service.cancel_register(username, password)
+  end
+
   def to(receiver, content)
     @service.to receiver, content.strip, username: @username, password: @password if @service
   end

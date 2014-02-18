@@ -33,6 +33,11 @@ module ChinaSMS
         res = Net::HTTP.post_form(URI.parse(REGISTRATION_URL), options)
         result res.body
       end
+
+      def cancel_register(username, password)
+        res = Net::HTTP.post_form(URI.parse(SEND_URL), cdkey: username, password: password)
+        result res.body
+      end
     end
   end
 end
